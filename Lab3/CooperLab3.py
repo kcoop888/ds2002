@@ -2,9 +2,12 @@ import sqlite3
 
 conn = sqlite3.connect('orders.db')
 cur = conn.cursor()
+# This is so the additions don't have a problem
 cur.execute("""DELETE FROM users;""")
 cur.execute("""DELETE FROM orders;""")
 conn.commit()
+
+# create users table
 cur.execute("""CREATE TABLE IF NOT EXISTS users(
    userid INT PRIMARY KEY,
    fname TEXT,
@@ -13,6 +16,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS users(
 """)
 conn.commit()
 
+# create orders table
 cur.execute("""
     CREATE TABLE IF NOT EXISTS orders(
         orderid INT PRIMARY KEY,
@@ -22,6 +26,7 @@ cur.execute("""
 """)
 conn.commit()
 
+# insert data by one
 cur.execute("""
     INSERT INTO users(userid, fname, lname, gender)
     VALUES('00001', 'Nik', 'Piepenbreier', 'male');
@@ -32,6 +37,7 @@ user = ('00002', 'Lois', 'Lane', 'Female')
 cur.execute("INSERT INTO users VALUES(?, ?, ?, ?);", user)
 conn.commit()
 
+# insert data by many
 more_users = [
     ('00003', 'Peter', 'Parker', 'Male'), ('00004', 'Bruce', 'Wayne', 'male')]
 customers = [
@@ -44,6 +50,7 @@ cur.executemany("INSERT INTO users VALUES(?, ?, ?, ?);", customers)
 cur.executemany("INSERT INTO orders VALUES(?, ?, ?, ?);", orders)
 conn.commit()
 
+# view data
 cur.execute("SELECT * FROM users;")
 one_result = cur.fetchone()
 print(one_result)
@@ -56,11 +63,13 @@ cur.execute("SELECT * FROM users;")
 all_results = cur.fetchall()
 print(all_results)
 
+# delete data
 cur.execute("DELETE FROM users WHERE lname='Parker';")
 conn.commit()
 cur.execute("select * from users where lname='Parker'")
 print(cur.fetchall())
 
+# join tables
 cur.execute("""SELECT *, users.fname, users.lname FROM orders
     LEFT JOIN users ON users.userid=orders.userid;""")
 print(cur.fetchall())
