@@ -1,3 +1,12 @@
+"""
+DS 2002
+Lab 3: SQL Lite Lab
+Kevin Cooper - kac4bh
+Due 9/25/22
+
+Git Repo: https://github.com/kcoop888/ds2002
+"""
+
 import sqlite3
 
 conn = sqlite3.connect('orders.db')
