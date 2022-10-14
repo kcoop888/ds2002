@@ -12,7 +12,7 @@ header_var = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit\
     /537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
 }
-
+ 
 url = 'https://query1.finance.yahoo.com/v7/finance/quote'
 queryStr = {"symbols": stock}
 response = requests.request("GET", url, headers=header_var, params=queryStr)
